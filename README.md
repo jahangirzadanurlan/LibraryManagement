@@ -1,5 +1,6 @@
 # library-managment
-![Untitled Diagram drawio (4)](https://github.com/jahangirzadanurlan/library-managment/assets/103985861/68d8008a-d5d2-4965-b38c-5daec5735c3c)
+![Untitled Diagram drawio (4)](https://github.com/jahangirzadanurlan/library-management/assets/103985861/4a3b2341-84cf-4f83-9fa6-cdd1642f7476)
+
 
 Library managment
 Rami Kışla Cd. 98/1   +90 212 934 38 55
