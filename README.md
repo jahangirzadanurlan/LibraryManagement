@@ -59,8 +59,6 @@ Model:
 
 
 
-Qeyd: Bu cədvəllər arasında ola biləcək metodlar, qrafik üzərində göstərilməyib. Bunları özünüz qurmalısınız.
-
 
 Endpoints:
 /user
