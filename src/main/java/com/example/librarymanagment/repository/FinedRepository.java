@@ -1,6 +1,6 @@
 package com.example.librarymanagment.repository;
 
-import com.example.librarymanagment.entity.Fined;
+import com.example.librarymanagment.model.entity.Fined;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

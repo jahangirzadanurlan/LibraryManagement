@@ -1,14 +1,10 @@
 spring:
-  application:
-    name: library-management-system
-    author: Nurlan Jahangirzada
-    version: 1.0.0
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/library_managment_system
-    username: postgres
-    password: root
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+  profiles:
+    include:
+      - db
+      - email
+      - security
+logging:
+  level:
+    root: INFO
+    com.example.mypackage: DEBUG
