@@ -1,4 +1,4 @@
-package com.example.librarymanagment.service.impl;
+package com.example.librarymanagment.service.impl.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

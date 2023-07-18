@@ -1,4 +1,4 @@
-package com.example.librarymanagment.model.dto.request;
+package com.example.librarymanagment.model.dto.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
-public class ClientRequestDto {
+public class CategoryResponseDto {
     String name;
-    String surname;
-    String email;
-    String address;
+    String description;
 }

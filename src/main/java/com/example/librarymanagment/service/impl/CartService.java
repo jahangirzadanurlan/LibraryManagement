@@ -16,28 +16,30 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CartService implements CartServiceI {
+public class CartService {
     private final CartRepository cartRepository;
     private final BookServiceI bookServiceI;
     private final ModelMapper modelMapper;
-    @Override
-    public ResponseDto save(Long bookId, CartRequestDto cartRequestDto) {
-        Cart cart=modelMapper.map(cartRequestDto,Cart.class);
-        Book book=modelMapper.map(bookServiceI.getById(bookId),Book.class);
 
-        if(book!=null){
-            List<Book> books= cart.getBooks();
-            if (books!=null){
-                cart.getBooks().add(book);
-            }else {
-                List<Book> bookList=new ArrayList<>();
-                bookList.add(book);
-                cart.setBooks(bookList);
-            }
-            cartRepository.save(cart);
-            return new ResponseDto("Save is successful!");
-        }else {
-            return new ResponseDto("Save is unsuccessful!");
-        }
-    }
+//    @Override
+//    public ResponseDto save(Long bookId, CartRequestDto cartRequestDto) {
+//        Cart cart=modelMapper.map(cartRequestDto,Cart.class);
+//        Book book=modelMapper.map(bookServiceI.getById(bookId),Book.class);
+//
+//        if(book!=null){
+//            List<Book> books= cart.getBooks();
+//            if (books!=null){
+//                cart.getBooks().add(book);
+//            }else {
+//                List<Book> bookList=new ArrayList<>();
+//                bookList.add(book);
+//                cart.setBooks(bookList);
+//            }
+//            cartRepository.save(cart);
+//            return new ResponseDto("Save is successful!");
+//        }else {
+//            return new ResponseDto("Save is unsuccessful!");
+//        }
+//    }
 }
+

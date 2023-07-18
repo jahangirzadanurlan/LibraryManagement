@@ -11,7 +11,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
 public class BookRequestDto {
-    Long id;
     String name;
     String author;
     Double amount;

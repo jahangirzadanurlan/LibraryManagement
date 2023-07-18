@@ -10,10 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
-public class BookResponseDto {
+public class BrandResponseDto {
     String name;
-    String author;
-    Double amount;
-    Integer remainCount;
-
+    String description;
 }

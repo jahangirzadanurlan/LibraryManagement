@@ -1,14 +1,13 @@
 package com.example.librarymanagment.model.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
@@ -21,11 +20,11 @@ public class Book {
     Double amount;
     Integer remainCount;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     BookStatus bookStatus;
     @ManyToOne
     Brand brand;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     BorrowDate borrowDate;
 
 }

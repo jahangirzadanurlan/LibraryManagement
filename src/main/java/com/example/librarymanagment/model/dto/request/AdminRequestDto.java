@@ -1,4 +1,4 @@
-package com.example.librarymanagment.model.dto.response;
+package com.example.librarymanagment.model.dto.request;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,10 +10,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
-public class BookResponseDto {
-    String name;
-    String author;
-    Double amount;
-    Integer remainCount;
+public class AdminRequestDto {
+    String username;
+    String password;
 
+    String systemPassword;
 }

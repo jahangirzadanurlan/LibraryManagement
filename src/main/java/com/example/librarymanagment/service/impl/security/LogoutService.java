@@ -1,4 +1,4 @@
-package com.example.librarymanagment.service.impl;
+package com.example.librarymanagment.service.impl.security;
 
 import com.example.librarymanagment.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;

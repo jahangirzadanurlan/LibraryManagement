@@ -1,7 +1,7 @@
 package com.example.librarymanagment.security;
 
 import com.example.librarymanagment.repository.TokenRepository;
-import com.example.librarymanagment.service.impl.JwtService;
+import com.example.librarymanagment.service.impl.security.JwtService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

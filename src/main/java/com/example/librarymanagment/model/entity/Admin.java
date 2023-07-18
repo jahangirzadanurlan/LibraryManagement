@@ -1,10 +1,10 @@
 package com.example.librarymanagment.model.entity;
 
+import com.example.librarymanagment.model.enums.Role;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -12,15 +12,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
-public class ConfirmationToken {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String token;
-    LocalDateTime createdAt;
-    LocalDateTime confirmedAt;
+    String username;
+    String password;
 
-    @OneToOne
-    User user;
+    @Enumerated(EnumType.STRING)
+    Role role;
 
 }

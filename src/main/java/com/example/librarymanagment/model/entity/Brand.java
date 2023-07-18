@@ -1,16 +1,15 @@
 package com.example.librarymanagment.model.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
@@ -21,9 +20,9 @@ public class Brand {
     String name;
     String description;
 
-    @OneToMany
-    List<Book> book;
-    @ManyToOne
+    @OneToMany(mappedBy = "brand",cascade = CascadeType.ALL)
+    List<Book> books;
+    @ManyToOne(cascade = CascadeType.ALL)
     Category category;
 
 }
