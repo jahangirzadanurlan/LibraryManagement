@@ -1,14 +1,16 @@
 package com.example.librarymanagment.model.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
@@ -18,8 +20,11 @@ public class Request {
     Long id;
     String name;
     String author;
+    Integer requestStatus;
 
     @ManyToOne
+    @JsonIgnore
+    @ToString.Exclude
     User user;
 
 }

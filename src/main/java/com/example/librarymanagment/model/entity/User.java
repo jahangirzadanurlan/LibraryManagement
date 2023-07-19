@@ -13,7 +13,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,6 +35,7 @@ public class User implements UserDetails {
     Role role;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     List<Token> tokens;
 
     @OneToOne
@@ -43,7 +46,8 @@ public class User implements UserDetails {
     Fined fined;
     @OneToMany
     List<Comment> comments;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     List<Request> requests;
 
 

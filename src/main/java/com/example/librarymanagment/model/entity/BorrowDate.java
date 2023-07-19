@@ -1,16 +1,16 @@
 package com.example.librarymanagment.model.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
@@ -18,8 +18,8 @@ public class BorrowDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Date start_date;
-    Date end_date;
+    LocalDateTime start_date;
+    LocalDate end_date;
 
     @OneToOne
     Book book;

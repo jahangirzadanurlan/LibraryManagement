@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .antMatchers("/admin/register").permitAll()
                 .antMatchers("/demo").hasRole(Role.ADMIN.name())
                 .antMatchers("/admin/**").permitAll()
+                .antMatchers("/moderator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
