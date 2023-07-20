@@ -20,7 +20,11 @@ public class BorrowDate {
     Long id;
     LocalDateTime start_date;
     LocalDate end_date;
-
+    @Builder.Default
+    int borrowStatus=0;
     @OneToOne
     Book book;
+
+    @ManyToOne
+    User user;
 }

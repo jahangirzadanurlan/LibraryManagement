@@ -135,6 +135,7 @@ public class BookService implements BookServiceI {
                 .book(book)
                 .start_date(LocalDateTime.now())
                 .end_date(LocalDate.now().plusDays(15))
+                .user(finduser(request))
                 .build();
         borrowDateRepository.save(borrowDate);
 
@@ -172,6 +173,16 @@ public class BookService implements BookServiceI {
             return false;
         }
     }
+     public User finduser(HttpServletRequest request) {
+            final String authHeader=request.getHeader("Authorization");
+            log.info("Header '{}' accepted .", authHeader);
+
+            String jwtToken=authHeader.substring(7);
+            String username=jwtService.extractUsername(jwtToken);
+
+            Optional<User> user = userRepository.findUserByEmailOrName(username);
+            return user.orElseThrow();
+        }
 
 
 }

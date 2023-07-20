@@ -4,10 +4,10 @@ import com.example.librarymanagment.model.dto.request.AuthenticationRequest;
 import com.example.librarymanagment.model.dto.request.UserRequestDto;
 import com.example.librarymanagment.model.dto.response.AuthenticationResponse;
 import com.example.librarymanagment.model.dto.response.ResponseDto;
-import com.example.librarymanagment.model.entity.ConfirmationToken;
-import com.example.librarymanagment.model.entity.Token;
-import com.example.librarymanagment.model.entity.User;
+import com.example.librarymanagment.model.entity.*;
 import com.example.librarymanagment.model.enums.Role;
+import com.example.librarymanagment.repository.BorrowDateRepository;
+import com.example.librarymanagment.repository.FinedRepository;
 import com.example.librarymanagment.repository.TokenRepository;
 import com.example.librarymanagment.repository.UserRepository;
 import com.example.librarymanagment.service.impl.ConfirmationTokenService;
@@ -16,8 +16,8 @@ import com.example.librarymanagment.service.impl.security.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,8 +25,11 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -36,8 +39,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSenderService emailSenderService;
+    private final BorrowDateRepository borrowDateRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final FinedRepository finedRepository;
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
 
@@ -160,5 +165,24 @@ public class UserService {
         tokenRepository.saveAll(validUserTokens);
     }
 
-
+    @Scheduled(cron = "0 0 12 * * ?") //Run every day at 12:00
+    @Transactional
+    public void checkUser() {
+        borrowDateRepository.findAll().stream()
+                .filter(borrowDate -> borrowDate.getEnd_date().isBefore(LocalDate.now())
+                && borrowDate.getBorrowStatus()==1)
+                .map(BorrowDate::getUser)
+                .forEach(user -> {
+                    Fined fined=Fined.builder()
+                            .clientEmail(user.getEmail())
+                            .clientName(user.getUsername())
+                            .startDate(LocalDate.now())
+                            .endDate(LocalDate.now().plusDays(15))
+                            .user(user)
+                            .build();
+                    finedRepository.save(fined);
+                    user.setFined(fined);
+                    userRepository.save(user);
+                });
+    }
 }

@@ -44,6 +44,8 @@ public class User implements UserDetails {
     List<Transactions> transactions;
     @OneToOne
     Fined fined;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<BorrowDate> borrowDate;
     @OneToMany
     List<Comment> comments;
     @OneToMany(mappedBy = "user")

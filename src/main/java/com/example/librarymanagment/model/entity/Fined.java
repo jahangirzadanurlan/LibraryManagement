@@ -1,16 +1,15 @@
 package com.example.librarymanagment.model.entity;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE )
@@ -20,8 +19,8 @@ public class Fined {
     Long id;
     String clientName;
     String clientEmail;
-    Date startDate;
-    Date endDate;
+    LocalDate startDate;
+    LocalDate endDate;
 
     @OneToOne
     User user;
