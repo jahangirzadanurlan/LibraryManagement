@@ -1,5 +1,6 @@
 package com.example.librarymanagment.service.impl;
 
+import com.example.librarymanagment.exception.UserNotFoundException;
 import com.example.librarymanagment.model.dto.request.AuthenticationRequest;
 import com.example.librarymanagment.model.dto.request.UserRequestDto;
 import com.example.librarymanagment.model.dto.response.AuthenticationResponse;
@@ -10,8 +11,6 @@ import com.example.librarymanagment.repository.BorrowDateRepository;
 import com.example.librarymanagment.repository.FinedRepository;
 import com.example.librarymanagment.repository.TokenRepository;
 import com.example.librarymanagment.repository.UserRepository;
-import com.example.librarymanagment.service.impl.ConfirmationTokenService;
-import com.example.librarymanagment.service.impl.EmailSenderService;
 import com.example.librarymanagment.service.impl.security.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -46,7 +44,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final TokenRepository tokenRepository;
 
-    public AuthenticationResponse register(UserRequestDto request){
+    public AuthenticationResponse registerUser(UserRequestDto request){
         User _user = User.builder()
                 .username(request.getUsername())
                 .address(request.getAddress())
@@ -57,7 +55,8 @@ public class UserService {
         userRepository.save(_user);
 
         User user=userRepository.findUserByEmailOrName(request.getUsername())
-                .orElseThrow(null);
+                .orElseThrow(()-> new UserNotFoundException());
+
         ConfirmationToken confirmationToken=ConfirmationToken.builder()
                 .user(user)
                 .createdAt(LocalDateTime.now())
@@ -77,6 +76,8 @@ public class UserService {
                 .refreshToken(refreshToken)
                 .build();
     }
+
+
 
     public ResponseDto confirm(UUID uuid){
         ConfirmationToken token = confirmationTokenService.getTokenByUUID(uuid.toString());
@@ -138,6 +139,8 @@ public class UserService {
                         .build();
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
+        }else {
+            throw new UserNotFoundException();
         }
     }
 

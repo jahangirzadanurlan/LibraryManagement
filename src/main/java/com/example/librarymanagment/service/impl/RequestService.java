@@ -1,5 +1,7 @@
 package com.example.librarymanagment.service.impl;
 
+import com.example.librarymanagment.exception.RequestNotFoundException;
+import com.example.librarymanagment.exception.UserNotFoundException;
 import com.example.librarymanagment.model.dto.request.RequestRequestDto;
 import com.example.librarymanagment.model.dto.response.ResponseDto;
 import com.example.librarymanagment.model.entity.Request;
@@ -47,7 +49,7 @@ public class RequestService implements RequestServiceI {
     @Override
     public ResponseDto updateRequestStatus(Long id) {
         Optional<Request> request = requestRepository.findById(id);
-        request.orElseThrow(()->new RuntimeException("There is no such id request")).setRequestStatus(1);
+        request.orElseThrow(()->new RequestNotFoundException()).setRequestStatus(1);
         requestRepository.save(request.orElseThrow());
         return new ResponseDto("Status changing,request accepting");
     }
@@ -69,7 +71,7 @@ public class RequestService implements RequestServiceI {
             Optional<User> user = userRepository.findUserByEmailOrName(username);
 
             if (user.orElseThrow().isEnabled()){
-                return user.orElseThrow();
+                return user.orElseThrow(()->new UserNotFoundException());
             }else{
                 return null;
             }

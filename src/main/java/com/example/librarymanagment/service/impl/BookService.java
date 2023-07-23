@@ -1,5 +1,9 @@
 package com.example.librarymanagment.service.impl;
 
+import com.example.librarymanagment.exception.BookNotFoundException;
+import com.example.librarymanagment.exception.BrandNotFoundException;
+import com.example.librarymanagment.exception.CategoryNotFoundException;
+import com.example.librarymanagment.exception.UserNotFoundException;
 import com.example.librarymanagment.model.dto.request.BookRequestDto;
 import com.example.librarymanagment.model.dto.response.BookResponseDto;
 import com.example.librarymanagment.model.dto.response.ResponseDto;
@@ -63,7 +67,7 @@ public class BookService implements BookServiceI {
             return save != null ? new ResponseDto("Book updating is successfull"):
                     new ResponseDto("Book updating is unsuccessfull!");
         }else {
-            return new ResponseDto("Book not found!");
+            throw new BookNotFoundException();
         }
     }
 
@@ -75,7 +79,7 @@ public class BookService implements BookServiceI {
         Brand filteredBrand = brands.stream()
                 .filter(brand -> brand.getId() == brandId)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(()->new BrandNotFoundException());
 
         List<BookResponseDto> collect = filteredBrand.getBooks().stream()
                 .map(book -> modelMapper.map(book, BookResponseDto.class))
@@ -87,17 +91,21 @@ public class BookService implements BookServiceI {
     @Override
     public BookResponseDto getBookById(Long categoryId, Long brandId, Long id) {
         Optional<Category> category = categoryRepository.findById(categoryId);
+        log.info("Category-> {}",category);
+        if (category.isEmpty()){
+            throw new CategoryNotFoundException();
+        }
 
         List<Brand> brands = category.orElseThrow().getBrands();
         Brand filteredBrand = brands.stream()
                 .filter(brand -> brand.getId() == brandId)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(()->new BrandNotFoundException());
 
         Book book = filteredBrand.getBooks().stream()
                 .filter(_book -> _book.getId()==id)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(()->new BookNotFoundException());
 
         return modelMapper.map(book, BookResponseDto.class);
     }
@@ -124,12 +132,12 @@ public class BookService implements BookServiceI {
         Brand filteredBrand = brands.stream()
                 .filter(brand -> brand.getId() == brandId)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(()-> new BrandNotFoundException());
 
         Book book = filteredBrand.getBooks().stream()
                 .filter(_book -> _book.getId()==id)
                 .findFirst()
-                .orElseThrow();
+                .orElseThrow(()->new BookNotFoundException());
 
         BorrowDate borrowDate=BorrowDate.builder()
                 .book(book)
@@ -164,7 +172,7 @@ public class BookService implements BookServiceI {
         if (username!=null){
             Optional<User> user = userRepository.findUserByEmailOrName(username);
 
-            if (user.orElseThrow().isEnabled()){
+            if (user.orElseThrow(()->new UserNotFoundException()).isEnabled()){
                 return true;
             }else{
                 return false;
@@ -181,7 +189,7 @@ public class BookService implements BookServiceI {
             String username=jwtService.extractUsername(jwtToken);
 
             Optional<User> user = userRepository.findUserByEmailOrName(username);
-            return user.orElseThrow();
+            return user.orElseThrow(()->new UserNotFoundException());
         }
 
 

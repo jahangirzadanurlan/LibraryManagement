@@ -39,7 +39,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<AuthenticationResponse> register(@RequestBody UserRequestDto request){
         log.info("POST:: /register request body -> {}",request);
-        AuthenticationResponse response= userService.register(request);
+        AuthenticationResponse response= userService.registerUser(request);
         log.info("POST:: /register response body -> {}",response);
 
         return ResponseEntity.ok(response);
@@ -108,6 +108,11 @@ public class UserController {
         ResponseDto response = requestService.saveRequest(httpRequest, request);
         log.info("POST:: /register request body -> {}",response);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/demo")
+    public ResponseEntity<String> hello(){
+        return ResponseEntity.ok("Hello user!");
     }
 
 

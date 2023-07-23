@@ -13,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+import java.lang.reflect.Method;
+
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
@@ -27,9 +29,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/user/auth").permitAll()
                 .antMatchers("/user/register").permitAll()
+                .antMatchers("/user/demo").hasRole(Role.USER.name())
                 .antMatchers("/admin/register").permitAll()
-                .antMatchers("/demo").hasRole(Role.ADMIN.name())
-                .antMatchers("/admin/**").permitAll()
+                .antMatchers("/admin/demo").hasRole(Role.ADMIN.name())
                 .antMatchers("/moderator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

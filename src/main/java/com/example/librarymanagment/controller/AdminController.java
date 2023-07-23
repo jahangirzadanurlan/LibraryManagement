@@ -4,10 +4,7 @@ import com.example.librarymanagment.model.dto.request.AdminRequestDto;
 import com.example.librarymanagment.model.dto.request.BookRequestDto;
 import com.example.librarymanagment.model.dto.request.BrandRequestDto;
 import com.example.librarymanagment.model.dto.request.CategoryRequestDto;
-import com.example.librarymanagment.model.dto.response.BookResponseDto;
-import com.example.librarymanagment.model.dto.response.BrandResponseDto;
-import com.example.librarymanagment.model.dto.response.CategoryResponseDto;
-import com.example.librarymanagment.model.dto.response.ResponseDto;
+import com.example.librarymanagment.model.dto.response.*;
 import com.example.librarymanagment.service.AdminServiceI;
 import com.example.librarymanagment.service.BookServiceI;
 import com.example.librarymanagment.service.BrandServiceI;
@@ -30,9 +27,9 @@ public class AdminController {
     private final BookServiceI bookService;
 
     @PostMapping("/register")
-    public ResponseEntity<ResponseDto> saveAdmin(@RequestBody AdminRequestDto request){
+    public ResponseEntity<AuthenticationResponse> saveAdmin(@RequestBody AdminRequestDto request){
         log.info("POST:: /register request body -> {}",request);
-        ResponseDto response = adminService.saveAdmin(request);
+        AuthenticationResponse response = adminService.registerAdmin(request);
         log.info("POST:: /register response body -> {}",response);
 
         return ResponseEntity.ok(response);
@@ -161,6 +158,11 @@ public class AdminController {
         log.info("UT:: /book/{} response body -> {}",id,response);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/demo")
+    public ResponseEntity<String> hello(){
+        return ResponseEntity.ok("Hello admin!");
     }
 
 }

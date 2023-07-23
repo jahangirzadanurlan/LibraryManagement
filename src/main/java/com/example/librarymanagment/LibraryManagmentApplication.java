@@ -12,4 +12,8 @@ public class LibraryManagmentApplication {
         SpringApplication.run(LibraryManagmentApplication.class, args);
     }
 
+    /**
+     * Author: Nurlan Jahangirzada
+     * Github: https://github.com/jahangirzadanurlan
+     */
 }

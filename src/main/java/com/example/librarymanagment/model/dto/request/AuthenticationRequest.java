@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class AuthenticationRequest {
     @NotNull
-    private String username;
+    String username;
 
     @Size(min = 6,message = "Password must be at least 6 characters long")
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\\\d).+$",message = "Password must contain at least one letter and one digit")

@@ -1,5 +1,6 @@
 package com.example.librarymanagment.service.impl;
 
+import com.example.librarymanagment.exception.CategoryNotFoundException;
 import com.example.librarymanagment.model.dto.request.CategoryRequestDto;
 import com.example.librarymanagment.model.dto.response.CategoryResponseDto;
 import com.example.librarymanagment.model.dto.response.ResponseDto;
@@ -56,6 +57,6 @@ public class CategoryService implements CategoryServiceI {
     public CategoryResponseDto getCategoryById(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
 
-        return modelMapper.map(category,CategoryResponseDto.class);
+        return modelMapper.map(category.orElseThrow(()->new CategoryNotFoundException()),CategoryResponseDto.class);
     }
 }
