@@ -9,10 +9,27 @@ library@gmail.com  https://ramikutuphanesi.gov.tr/
 
 
 
-
 SCenario
 
 Libraty Managment System
+
+📚 Library Management System 📚
+
+Welcome to the Library Management System project! This powerful and feature-rich system provides a seamless experience for managing a real library environment. Whether you're a librarian, a student, or a book enthusiast, this application will revolutionize the way you interact with books and library resources.
+
+🎯 Key Features:
+- User-friendly interface: Navigate through the system effortlessly with an intuitive and clean design.
+- Account Verification: Secure your account by verifying your email address upon registration.
+- JWT Authentication: Protect your data and ensure authorized access with JSON Web Tokens.
+- Book Catalog: Explore a vast collection of books categorized by genres, authors, and more.
+- Borrow & Return: Easily borrow and return books with just a few clicks.
+- Reservation System: Reserve books that are currently unavailable and get notified when they become available.
+- Search & Filter: Find your favorite books quickly with powerful search and filtering options.
+- User Management: Manage user profiles, privileges, and checkouts effectively.
+- Admin Dashboard: Administrators can efficiently oversee the library's operations, including adding new books and managing memberships.
+- Statistics & Reports: Get insights into library usage and generate reports for analysis.
+- Multi-language Support: Enjoy the system in your preferred language with multi-language support.
+
 
 Mövcud problemlər
 
